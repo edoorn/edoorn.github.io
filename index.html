@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Memory Game | Round 1</title>
+    <meta charset="UTF-8" />
+    <link href="./css/style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <header>
+      <h1>Memory Game</h1>
+    </header>
+    <main>
+      <h2>Instructions</h2>
+      <p>Flip two cards over to find out if they match.</p>
+      <div id="announce" class="visually-hidden" aria-live="polite"></div>
+      <div>
+        <table id="game-board" class="board" tabindex="-1">
+          <caption id="level-caption">Level 1</caption>
+          <tr class="row">
+            <td><button class="space"><img src="./img/pink.jpg" alt="Memory Card"></button></td>
+            <td><button class="space"><img src="./img/pink.jpg" alt="Memory Card"></button></td>
+            <td><button class="space"><img src="./img/pink.jpg" alt="Memory Card"></button></td>
+          </tr>
+          <tr class="row">
+            <td><button class="space"><img src="./img/pink.jpg" alt="Memory Card"></button></td>
+            <td><div>Free Space</div></td>
+            <td><button class="space"><img src="./img/pink.jpg" alt="Memory Card"></button></td>
+          </tr>
+          <tr class="row">
+            <td><button class="space"><img src="./img/pink.jpg" alt="Memory Card"></button></td>
+            <td><button class="space"><img src="./img/pink.jpg" alt="Memory Card"></button></td>
+            <td><button class="space"><img src="./img/pink.jpg" alt="Memory Card"></button></td>
+          </tr>
+        </table>
+    </div>
+    </main>
+    <footer>
+      <p>Created with love by <span class="name">Ellen</span></p>
+    </footer>
+  </body>
+  <script src="./js/script.js"></script>
+</html>
