@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Memory Game | Round 1</title>
+    <title>Memory Game</title>
     <meta charset="UTF-8" />
     <link href="./css/style.css" rel="stylesheet" type="text/css" />
   </head>
@@ -12,9 +12,11 @@
     <main>
       <h2>Instructions</h2>
       <p>Flip two cards over to find out if they match.</p>
-      <div id="announce" class="visually-hidden" aria-live="polite"></div>
+      <div id="counter" aria-live="polite" aria-atomic="false">
+        <p>Round: 1</p>
+        <p>Pairs: 0 of 4</p>
+      </div>
       <div>
-        <h3 id="level" tabindex="-1">Level 1</h3>
         <ul id="game-board" class="board" tabindex="-1">
           <li class="space"><button><img src="./img/pink.jpg" alt="Memory Card, 1 of 8"></button></li>
           <li class="space"><button><img src="./img/pink.jpg" alt="Memory Card, 2 of 8"></button></li>

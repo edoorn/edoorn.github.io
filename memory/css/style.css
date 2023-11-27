@@ -7,8 +7,27 @@
   word-wrap: normal;
 }
 
+.board {
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.space {
+  list-style: none;
+  margin: 5px;
+}
+
 .space img {
-  max-width: 8rem;
+  width: 10em;
+}
+
+.space button {
+  cursor: pointer;
+  line-height: 0;
+  font-size: 1em;
+  border: 0;
+  padding: 0;
 }
 
 .hide {

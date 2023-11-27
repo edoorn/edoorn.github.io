@@ -1,7 +1,7 @@
 let flipped = false;
 let lockBoard = false;
-let points = 0;
-let level = 1;
+let pairs = 0;
+let round = 1;
 let firstCard;
 let secondCard;
 
@@ -67,13 +67,13 @@ let showCard = function () {
 let checkMatch = function () {
   let isMatch = firstCard.dataset.id === secondCard.dataset.id;
   if (isMatch) {
-    points++;
-    let announcement = 'It\'s a match! You have ' + points + ' pair' + (points > 1 ? 's.' : '.');
-    announce(announcement);
+    pairs++;
+    // let announcement = 'It\'s a match! You have ' + pairs + ' pair' + (pairs > 1 ? 's.' : '.');
+    // announce(announcement);
+    let pairsCounter = document.getElementById('counter').children[1];
+    pairsCounter.innerText = 'Pairs: ' + pairs + ' of 4';
     resetBoard();
   } else {
-    let announcement = sorry[Math.floor((Math.random() * sorry.length))];
-    announce(announcement);
     hideCards();
   }
 }
@@ -84,6 +84,9 @@ let hideCards = function () {
     firstCard.classList.add('hide');
     secondCard.previousSibling.classList.remove('hide');
     secondCard.classList.add('hide');
+    if (pairs < cards.length) {
+      secondCard.previousSibling.focus();
+    }
     resetBoard();
   }, 1500);
 }
@@ -93,15 +96,15 @@ let resetBoard = function () {
   secondCard = null;
   flipped = false;
   lockBoard = false;
-  if (points >= cards.length) {
-    levelUp();
+  if (pairs >= cards.length) {
+    goToNextRound();
   }
 }
 
-let dealCards = function (cards, nextLevel) {
+let dealCards = function (cards, nextRound) {
   let spaces = document.getElementsByClassName('space');
   for (let i = 0; i < cards.length; i++) {
-    if (nextLevel) {
+    if (nextRound) {
       spaces[i].children[0].classList.remove('hide');
       let discard = spaces[i].children[1];
       spaces[i].removeChild(discard);
@@ -109,7 +112,7 @@ let dealCards = function (cards, nextLevel) {
     let card = document.createElement('img');
     card.setAttribute('src', './img/' + cards[i].file);
     card.setAttribute('alt', cards[i].name);
-    card.setAttribute('lang', 'es');
+    card.setAttribute('lang', 'es'); // Remove for English card names
     card.setAttribute('class', 'hide');
     card.setAttribute('data-id', cards[i].id);
     card.setAttribute('tabindex', '-1');
@@ -118,22 +121,24 @@ let dealCards = function (cards, nextLevel) {
   }
 }
 
-let levelUp = function () {
-  points = 0;
-  level++;
+let goToNextRound = function () {
+  pairs = 0;
+  round++;
   setTimeout(() => {
-    let announcement = congrats[Math.floor((Math.random() * congrats.length))]
-      + ' Level ' + level;
-    announce(announcement);
-    let caption = document.getElementById('level');
-    caption.innerText = caption.innerText.slice(0, -1) + level;
     dealCards(shuffleCards(cards), true);
+    // let announcement = congrats[Math.floor((Math.random() * congrats.length))]
+    // + ' You\'re moving on to Round ' + round;
+    // announce(announcement);
+    let roundCounter = document.getElementById('counter').children[0];
+    roundCounter.innerText = 'Round: ' + round;
+    let pairsCounter = document.getElementById('counter').children[1];
+    pairsCounter.innerText = 'Pairs: 0 of 4';
   }, 1500);
 }
 
-let announce = function(text) {
-  let announcement = document.getElementById('announce');
-  announcement.innerText = text;
-}
+// let announce = function(text) {
+//   // let announcement = document.getElementById('announce');
+//   // announcement.innerText = text;
+// }
 
 dealCards(shuffleCards(cards));
