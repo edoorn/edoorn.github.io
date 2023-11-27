@@ -50,25 +50,27 @@ let showCard = function () {
   if (flipped) {
     lockBoard = true;
   }
-  this.children[0].classList.add('hide');
-  this.children[1].classList.remove('hide');
+  this.classList.add('hide');
+  let card = this.nextSibling;
+  card.classList.remove('hide');
+  card.focus();
 
   if (!flipped) {
     flipped = true;
-    firstCard = this;
+    firstCard = card;
     return;
   }
-  secondCard = this;
+  secondCard = card;
   checkMatch();
 }
 
 let checkMatch = function () {
-  let isMatch = firstCard.children[1].dataset.id === secondCard.children[1].dataset.id;
+  let isMatch = firstCard.dataset.id === secondCard.dataset.id;
   if (isMatch) {
     points++;
     let announcement = 'It\'s a match! You have ' + points + ' pair' + (points > 1 ? 's.' : '.');
     announce(announcement);
-    disableCards();
+    resetBoard();
   } else {
     let announcement = sorry[Math.floor((Math.random() * sorry.length))];
     announce(announcement);
@@ -76,18 +78,12 @@ let checkMatch = function () {
   }
 }
 
-let disableCards = function () {
-  firstCard.setAttribute('disabled', '');
-  secondCard.setAttribute('disabled', '');
-  resetBoard();
-}
-
 let hideCards = function () {
   setTimeout(() => {
-    firstCard.children[0].classList.remove('hide');
-    firstCard.children[1].classList.add('hide');
-    secondCard.children[0].classList.remove('hide');
-    secondCard.children[1].classList.add('hide');
+    firstCard.previousSibling.classList.remove('hide');
+    firstCard.classList.add('hide');
+    secondCard.previousSibling.classList.remove('hide');
+    secondCard.classList.add('hide');
     resetBoard();
   }, 1500);
 }
@@ -105,10 +101,9 @@ let resetBoard = function () {
 let dealCards = function (cards, nextLevel) {
   let spaces = document.getElementsByClassName('space');
   for (let i = 0; i < cards.length; i++) {
-    spaces[i].children[0].classList.remove('hide');
     if (nextLevel) {
+      spaces[i].children[0].classList.remove('hide');
       let discard = spaces[i].children[1];
-      spaces[i].removeAttribute('disabled');
       spaces[i].removeChild(discard);
     }
     let card = document.createElement('img');
@@ -117,8 +112,9 @@ let dealCards = function (cards, nextLevel) {
     card.setAttribute('lang', 'es');
     card.setAttribute('class', 'hide');
     card.setAttribute('data-id', cards[i].id);
-    spaces[i].appendChild(card); 
-    spaces[i].addEventListener('click', showCard);
+    card.setAttribute('tabindex', '-1');
+    spaces[i].appendChild(card);
+    spaces[i].children[0].addEventListener('click', showCard);
   }
 }
 
@@ -127,9 +123,9 @@ let levelUp = function () {
   level++;
   setTimeout(() => {
     let announcement = congrats[Math.floor((Math.random() * congrats.length))]
-      + 'Level ' + level;
+      + ' Level ' + level;
     announce(announcement);
-    let caption = document.getElementById('level-caption');
+    let caption = document.getElementById('level');
     caption.innerText = caption.innerText.slice(0, -1) + level;
     dealCards(shuffleCards(cards), true);
   }, 1500);
