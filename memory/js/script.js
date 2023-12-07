@@ -7,20 +7,20 @@ let secondCard;
 
 let cards = [{
   id: '0',
-  file: 'concha.jpg',
-  name: 'Concha',
+  file: '#',
+  name: 'Coconut Shrimp',
 }, {
   id: '1',
-  file: 'oreja.jpg',
-  name: 'Oreja'
+  file: '#',
+  name: 'Oat Milk'
 }, {
   id: '2',
-  file: 'cuerno.jpg',
-  name: 'Cuerno'
+  file: '#',
+  name: 'Refrigerator'
 }, {
   id: '3',
-  file: 'nino_envuelto.jpg',
-  name: 'Niño Envuelto'
+  file: '#',
+  name: 'Diapers'
 }];
 
 let congrats = [
@@ -68,8 +68,6 @@ let checkMatch = function () {
   let isMatch = firstCard.dataset.id === secondCard.dataset.id;
   if (isMatch) {
     pairs++;
-    // let announcement = 'It\'s a match! You have ' + pairs + ' pair' + (pairs > 1 ? 's.' : '.');
-    // announce(announcement);
     let pairsCounter = document.getElementById('counter').children[1];
     pairsCounter.innerText = 'Pairs: ' + pairs + ' of 4';
     resetBoard();
@@ -112,7 +110,6 @@ let dealCards = function (cards, nextRound) {
     let card = document.createElement('img');
     card.setAttribute('src', './img/' + cards[i].file);
     card.setAttribute('alt', cards[i].name);
-    card.setAttribute('lang', 'es'); // Remove for English card names
     card.setAttribute('class', 'hide');
     card.setAttribute('data-id', cards[i].id);
     card.setAttribute('tabindex', '-1');
@@ -126,19 +123,22 @@ let goToNextRound = function () {
   round++;
   setTimeout(() => {
     dealCards(shuffleCards(cards), true);
-    // let announcement = congrats[Math.floor((Math.random() * congrats.length))]
-    // + ' You\'re moving on to Round ' + round;
-    // announce(announcement);
     let roundCounter = document.getElementById('counter').children[0];
     roundCounter.innerText = 'Round: ' + round;
     let pairsCounter = document.getElementById('counter').children[1];
     pairsCounter.innerText = 'Pairs: 0 of 4';
   }, 1500);
+  if (round === 2) {
+    setTimeout(() => {
+      text = "Congrats! You made it past the first round. Be the first attendee to post your favorite Brand product in the event chat to win a $100 Brand card."
+      announce(text);
+  }, 4000);
+  }
 }
 
-// let announce = function(text) {
-//   // let announcement = document.getElementById('announce');
-//   // announcement.innerText = text;
-// }
+let announce = function(text) {
+  let announcement = document.getElementById('live-region');
+  announcement.innerText = text;
+}
 
 dealCards(shuffleCards(cards));
