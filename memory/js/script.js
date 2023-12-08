@@ -69,7 +69,7 @@ let checkMatch = function () {
   if (isMatch) {
     pairs++;
     let pairsCounter = document.getElementById('counter').children[1];
-    pairsCounter.innerText = 'Pairs: ' + pairs + ' of 4';
+    pairsCounter.innerText = pairs + ' out of 4 pairs complete.';
     resetBoard();
   } else {
     hideCards();
@@ -124,13 +124,13 @@ let goToNextRound = function () {
   setTimeout(() => {
     dealCards(shuffleCards(cards), true);
     let roundCounter = document.getElementById('counter').children[0];
-    roundCounter.innerText = 'Round: ' + round;
+    roundCounter.innerText = 'Round ' + round + '.';
     let pairsCounter = document.getElementById('counter').children[1];
-    pairsCounter.innerText = 'Pairs: 0 of 4';
+    pairsCounter.innerText = '0 out of 4 pairs complete.';
   }, 1500);
   if (round === 2) {
     setTimeout(() => {
-      text = "Congrats! You made it past the first round. Be the first attendee to post your favorite Brand product in the event chat to win a $100 Brand card."
+      text = "Congrats! You made it past the first round. Be the first person to post your favorite Brand product in the event chat to win a $100 Brand card."
       announce(text);
   }, 4000);
   }

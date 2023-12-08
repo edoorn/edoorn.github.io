@@ -7,15 +7,12 @@
     <link href="./css/style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <header>
-      <h1>Memory Game</h1>
-    </header>
     <main>
-      <h2>Instructions</h2>
+      <h1>Memory Game</h1>
       <p>Flip two cards over to find out if they match.</p>
-      <div id="counter" aria-live="polite" aria-atomic="false">
-        <p>Round: 1</p>
-        <p>Pairs: 0 of 4</p>
+      <div id="counter" aria-live="polite" aria-atomic="false" class="visually-hidden">
+        <p>Round 1.</p>
+        <p>0 out of 4 pairs complete.</p>
       </div>
       <div>
         <ul id="game-board" class="board" tabindex="-1">
